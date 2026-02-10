@@ -1,8 +1,8 @@
 package frc.robot;
 
-import static frc.robot.Constants.VisionConstants.APRILTAG_FIELD_LAYOUT;
-import static frc.robot.Constants.VisionConstants.MULTI_TAG_STD_DEVS;
+import static frc.robot.Constants.VisionConstants.APRIL_TAG_FIELD_LAYOUT;
 import static frc.robot.Constants.VisionConstants.SINGLE_TAG_STD_DEVS;
+import static frc.robot.Constants.VisionConstants.MULTI_TAG_STD_DEVS;
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
@@ -33,7 +33,7 @@ public class Vision {
     camera = new PhotonCamera(cameraName);
 
     photonEstimator = new PhotonPoseEstimator(
-        APRILTAG_FIELD_LAYOUT,
+        APRIL_TAG_FIELD_LAYOUT,
         PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
         robotToCameraTransform);
     photonEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
