@@ -21,13 +21,9 @@ import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.ClimberStopCommand;
 import frc.robot.commands.ClimberSwitchCommand;
-import frc.robot.commands.DeployIntakeCommand;
-import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.PhotonVisionCommand;
-import frc.robot.commands.RetractIntakeCommand;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
 
@@ -53,7 +49,7 @@ public class RobotContainer {
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     public final Climber m_climber = new Climber();
-    public final Intake m_intake = new Intake();
+    // public final Intake m_intake = new Intake();
 
     private final PhotonVisionCommand visionCommand = new PhotonVisionCommand(drivetrain::addVisionMeasurement);
 
@@ -99,9 +95,9 @@ public class RobotContainer {
         joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
         
-        xboxController.x().onTrue(new DeployIntakeCommand(m_intake).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-        xboxController.a().onTrue(new RetractIntakeCommand(m_intake).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-        xboxController.y().onTrue(new IntakeCommand(m_intake).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+        // xboxController.x().onTrue(new DeployIntakeCommand(m_intake).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+        // xboxController.a().onTrue(new RetractIntakeCommand(m_intake).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+        // xboxController.y().onTrue(new IntakeCommand(m_intake).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
         // Reset the field-centric heading on left bumper press.
         joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
