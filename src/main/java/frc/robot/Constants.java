@@ -88,8 +88,68 @@ public class Constants {
 
 
     }
-
     
+    public static final double PIVOT_SPEED = .5;
+    public static final double INTAKE_DEPLOY_POSITION = 10;
+    public static final double INTAKE_RETRACT_POSITION = 0;
+
+    public static class PIVOT_MOTOR_CONFIGS {
+        public static final int MOTOR_ID = 1;
+        public static final double SLOT_0_kS = 0.25;
+        public static final double SLOT_0_kV = 0.12;
+        public static final double SLOT_0_kA = 0.03;
+        public static final double SLOT_0_kP = 4.8;
+        public static final double SLOT_0_kI = 0;
+        public static final double SLOT_0_kD = 0.1;
+        public static final int MOTION_MAGIC_CRUISE_VELOCITY = 80;
+        public static final int MOTION_MAGIC_ACCELERATION = 160;
+        public static final int MOTION_MAGIC_JERK = 1600;
+        public static final double PEEK_FORWARD_VOLTAGE = 8;
+        public static final int PEEK_REVERSE_VOLTAGE = 8;
+        public static final double PEAK_AMPS = 70;
+        public static final double SOFT_FORWARD_LIMIT = 10;
+        public static final double SOFT_REVERSE_LIMIT = 0;
+    }
+
+    public static class INTAKE_MOTOR_CONFIGS {
+        public static final int MOTOR_ID = 2;
+        public static final double PEEK_FORWARD_VOLTAGE = 12;
+        public static final double PEEK_REVERSE_VOLTAGE = 12;
+        public static final double PEAK_AMPS = 40;
+        public static final double INTAKE_MOTOR_SPEED = .5;
+    }
+    
+    public static class SHOOTER_MOTOR_CONFIGS {
+        public static final int LEFT_MOTOR_ID = 3;
+        public static final int RIGHT_MOTOR_ID = 4;
+        public static final double PEEK_FORWARD_VOLTAGE = 12.0;
+        public static final double PEEK_REVERSE_VOLTAGE = 12.0;
+        public static final int PEAK_AMPS = 40;
+        public static final double SHOOTER_MOTOR_PASS_SPEED = 0.6;
+        public static final double SHOOTER_MOTOR_MAX_SPEED = 1.0;
+        public static final double SLOT_0_kS = 0.25;
+        public static final double SLOT_0_kV = 0.12;
+        public static final double SLOT_0_kA = 0.03;
+        public static final double SLOT_0_kP = 4.8;
+        public static final double SLOT_0_kI = 0;
+        public static final double SLOT_0_kD = 0.1;
+    }
+
+    public static class SPINDEXER_MOTOR_CONFIGS {
+        public static final int SPINDEXER_MOTOR_ID = 6;
+        public static final double PEEK_FORWARD_VOLTAGE = 12.0;
+        public static final double PEEK_REVERSE_VOLTAGE = 12.0;
+        public static final int PEAK_AMPS = 20;
+        public static final double SPINDEXER_MOTOR_SPEED = 0.3;
+    }
+
+    public static class KICKER_MOTOR_CONFIGS {
+        public static final int KICKER_MOTOR_ID = 5;
+        public static final double PEEK_FORWARD_VOLTAGE = 12.0;
+        public static final double PEEK_REVERSE_VOLTAGE = 12.0;
+        public static final int PEAK_AMPS = 20;
+        public static final double KICKER_MOTOR_SPEED = 0.5;
+    }
 
 
 
