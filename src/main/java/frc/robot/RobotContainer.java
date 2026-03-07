@@ -24,6 +24,8 @@ import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Constants.SHOOTING_CONSTANTS;
 import frc.robot.commands.PhotonVisionCommand;
+import frc.robot.commands.TeleOpCommands.IntakeFuelCommand;
+import frc.robot.commands.TeleOpCommands.RetractIntakeCommand;
 import frc.robot.commands.TeleOpCommands.ShootAtTargetCommand;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.Climber;
@@ -71,6 +73,8 @@ public class RobotContainer {
     private final SendableChooser<Command> autoChooser;
 
     private final ShootAtTargetCommand mAutoShoot = new ShootAtTargetCommand(drivetrain, m_Turret, m_Shooter, m_Kicker, m_Spindexer, SHOOTING_CONSTANTS.HUB_RED, SHOOTING_CONSTANTS.HUB_BLUE, SHOOTING_CONSTANTS.SHOOT_LOOKUP_TABLE);
+    private final IntakeFuelCommand mAutoIntake = new IntakeFuelCommand(m_intake);
+    private final RetractIntakeCommand mAutoRetractIntake = new RetractIntakeCommand(m_intake);
 
     public RobotContainer() {
 
@@ -118,6 +122,8 @@ public class RobotContainer {
 
         // Configure Operator Bindings
         driveXboxController.rightTrigger().whileTrue(mAutoShoot);
+        driveXboxController.leftTrigger().whileTrue(mAutoIntake);
+        driveXboxController.leftBumper().whileTrue(mAutoRetractIntake);
     }
 
     public Command getAutonomousCommand() {

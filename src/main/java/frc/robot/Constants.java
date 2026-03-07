@@ -68,8 +68,8 @@ public class Constants {
     }
     
     public static final double PIVOT_SPEED = .5;
-    public static final double INTAKE_DEPLOY_POSITION = 10;
-    public static final double INTAKE_RETRACT_POSITION = 0;
+    public static final double INTAKE_DEPLOY_POSITION = 0;
+    public static final double INTAKE_RETRACT_POSITION = 10;
 
     public static class PIVOT_MOTOR_CONFIGS {
         public static final int MOTOR_ID = 1;
@@ -79,14 +79,17 @@ public class Constants {
         public static final double SLOT_0_kP = 4.8;
         public static final double SLOT_0_kI = 0;
         public static final double SLOT_0_kD = 0.1;
+        public static final double SLOT_0_kG = .1;
         public static final int MOTION_MAGIC_CRUISE_VELOCITY = 80;
         public static final int MOTION_MAGIC_ACCELERATION = 160;
         public static final int MOTION_MAGIC_JERK = 1600;
         public static final double PEEK_FORWARD_VOLTAGE = 8;
         public static final int PEEK_REVERSE_VOLTAGE = 8;
         public static final double PEAK_AMPS = 70;
-        public static final double SOFT_FORWARD_LIMIT = 10;
-        public static final double SOFT_REVERSE_LIMIT = 0;
+        public static final double SOFT_FORWARD_LIMIT = 0; // Ground, Intake deployed
+        public static final double SOFT_REVERSE_LIMIT = 10; // Up position, Intake retracted
+        public static final double SENSOR_TO_MECHANISM_RATIO = 25;
+        public static final double INTAKE_POS_TOLERANCE_IN_ROTATIONS = .01;
     }
 
     public static class INTAKE_MOTOR_CONFIGS {
@@ -141,8 +144,8 @@ public class Constants {
         public static final double CLIMBERTORQUE_D_VALUE = 0;
 
     
-        public static final int climberLeadID = 4;
-        public static final int climberFollowID = 5;
+        public static final int climberLeadID = 8;
+        public static final int climberFollowID = 9;
 
         public static final double climberSpeed = -.4;
     }

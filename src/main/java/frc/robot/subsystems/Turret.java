@@ -19,8 +19,6 @@ import frc.robot.Constants.TURRET_MOTOR_CONFIGS;
 import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Volts;
 
-import java.io.ObjectInputFilter.Status;
-
 public class Turret implements Subsystem {
 
     // turret motor configs
