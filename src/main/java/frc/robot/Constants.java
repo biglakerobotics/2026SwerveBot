@@ -22,8 +22,8 @@ public class Constants {
     public static final double MAX_ROTATION_SPEED = 3;
     public static final int INTAKESPEED = 0;
 
-    public static final int intakeMotorID = 6;
-    public static final int intakeJointMotorID = 7;  
+    // public static final int intakeMotorID = 6;
+    // public static final int intakeJointMotorID = 10;  
 
     public static final double peakVoltage = 8;
     public static final double peaKAmps = 70;
@@ -35,10 +35,9 @@ public class Constants {
     public static final String Spindexer = null;
 
     public static class VisionConstants {
-        public static final String LIMELIGHT_NAME1 = "limelight";
-        public static final String LIMELIGHT_NAME2 = "limelight";
-        public static final String LIMELIGHT_NAME3 = "limelight";
-        public static final String LIMELIGHT_NAME4 = "limelight";
+        public static final String PHOTON_CAMERA_LEFT = "Camera_Left";
+        public static final String PHOTON_CAMERA_RIGHT = "Camera_Right";
+  
 
         public static final AprilTagFieldLayout APRIL_TAG_FIELD_LAYOUT = AprilTagFieldLayout
         .loadField(AprilTagFields.k2026RebuiltWelded);
@@ -48,20 +47,20 @@ public class Constants {
    
         
 
-        public static final Transform3d Camera1 = new Transform3d(
-            new Translation3d(Units.inchesToMeters(0), Units.inchesToMeters(0), 
-            Units.inchesToMeters(0)), 
+        public static final Transform3d CameraLeft = new Transform3d(
+            new Translation3d(Units.inchesToMeters(-11.75), Units.inchesToMeters(3.5), 
+            Units.inchesToMeters(6.25)), 
             new Rotation3d(0, Units.degreesToRadians(0), Units.degreesToRadians(0))
         );
-        public static final Transform3d Camera2 = new Transform3d(
-            new Translation3d(Units.inchesToMeters(0), Units.inchesToMeters(0), 
-            Units.inchesToMeters(0)), 
+        public static final Transform3d CameraRight = new Transform3d(
+            new Translation3d(Units.inchesToMeters(-11.75), Units.inchesToMeters(7.25), 
+            Units.inchesToMeters(6.25)), 
             new Rotation3d(0, Units.degreesToRadians(0), Units.degreesToRadians(0))
         );
-        public static final String[] CAMERA_NAMES = {LIMELIGHT_NAME1, LIMELIGHT_NAME2, LIMELIGHT_NAME3, LIMELIGHT_NAME4};
+        public static final String[] CAMERA_NAMES = {PHOTON_CAMERA_LEFT, PHOTON_CAMERA_RIGHT};
         
         public static final Transform3d[] ROBOT_TO_CAMERA_TRANSFORMS = new Transform3d[] {
-            Camera1, Camera2
+            CameraLeft, CameraRight
         };
 
 

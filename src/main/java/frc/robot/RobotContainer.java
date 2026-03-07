@@ -6,22 +6,15 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
-import org.photonvision.proto.Photon;
-
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveModule.SteerRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Constants.SHOOTING_CONSTANTS;
 import frc.robot.commands.PhotonVisionCommand;
 import frc.robot.commands.TeleOpCommands.IntakeFuelCommand;
@@ -36,7 +29,6 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Intake;
 
-import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -79,10 +71,12 @@ public class RobotContainer {
     public RobotContainer() {
 
 
-        NamedCommands.registerCommand("AutoShoot", mAutoShoot);
+        NamedCommands.registerCommand("Shoot", mAutoShoot);
+        NamedCommands.registerCommand("DeployIntake", mAutoIntake);
+        NamedCommands.registerCommand("RetractIntake", mAutoRetractIntake);
+       
 
         visionCommand.schedule(); // Schedule the vision command to run continuously, even when disabled
-        configureBindings();
 
 
 
@@ -90,7 +84,8 @@ public class RobotContainer {
         // autoChooser.addOption("Just Shoot", new PathPlannerAuto("JustShoot"));
         autoChooser = AutoBuilder.buildAutoChooser(); // populates auto based on Path Planner Auto Folder
 
-        SmartDashboard.putData("autoChooser", autoChooser);
+        SmartDashboard.putData("Auto Mode", autoChooser);
+        configureBindings();
     }
 
     
