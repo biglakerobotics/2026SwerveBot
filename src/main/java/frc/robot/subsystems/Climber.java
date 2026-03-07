@@ -18,10 +18,11 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
+import frc.robot.Constants.CLIMBER_MOTOR_CONFIGS;
 
 public class Climber implements Subsystem {
 
-    TalonFX climberLead = new TalonFX(Constants.climberLeadID);
+    TalonFX climberLead = new TalonFX(CLIMBER_MOTOR_CONFIGS.climberLeadID);
     // TalonFX climberFollow = new TalonFX(Constants.climberFollowID);
     public DigitalInput climberLeadSwitch = new DigitalInput(0);
     public DigitalInput climberFollowSwitch = new DigitalInput(1);
@@ -37,19 +38,19 @@ public class Climber implements Subsystem {
     public final PositionTorqueCurrentFOC m_positionTorque = new PositionTorqueCurrentFOC(0).withSlot(1);
     public final NeutralOut m_brake = new NeutralOut();
 
-    double climberSpeed = Constants.climberSpeed;
+    double climberSpeed = CLIMBER_MOTOR_CONFIGS.climberSpeed;
 
     public void ClimberConfiguration() {
-        climberConfigs.Slot0.kP = Constants.CLIMBERVOLTS_P_VALUE;
-        climberConfigs.Slot0.kI = Constants.CLIMBERVOLTS_I_VALUE;
-        climberConfigs.Slot0.kD = Constants.CLIMBERVOLTS_D_VALUE;
+        climberConfigs.Slot0.kP = CLIMBER_MOTOR_CONFIGS.CLIMBERVOLTS_P_VALUE;
+        climberConfigs.Slot0.kI = CLIMBER_MOTOR_CONFIGS.CLIMBERVOLTS_I_VALUE;
+        climberConfigs.Slot0.kD = CLIMBER_MOTOR_CONFIGS.CLIMBERVOLTS_D_VALUE;
 
         climberConfigs.Voltage.withPeakForwardVoltage(Volts.of(Constants.peakVoltage))
             .withPeakReverseVoltage(Volts.of(-Constants.peakVoltage));
 
-        climberConfigs.Slot1.kP = Constants.CLIMBERTORQUE_P_VALUE;
-        climberConfigs.Slot1.kI = Constants.CLIMBERTORQUE_I_VALUE;
-        climberConfigs.Slot1.kD = Constants.CLIMBERTORQUE_D_VALUE;
+        climberConfigs.Slot1.kP = CLIMBER_MOTOR_CONFIGS.CLIMBERTORQUE_P_VALUE;
+        climberConfigs.Slot1.kI = CLIMBER_MOTOR_CONFIGS.CLIMBERTORQUE_I_VALUE;
+        climberConfigs.Slot1.kD = CLIMBER_MOTOR_CONFIGS.CLIMBERTORQUE_D_VALUE;
 
         climberConfigs.MotorOutput.withInverted(InvertedValue.CounterClockwise_Positive);
         climberConfigs.CurrentLimits.withStatorCurrentLimit(Constants.peaKAmps).withStatorCurrentLimitEnable(true);

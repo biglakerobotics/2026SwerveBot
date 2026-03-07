@@ -2,13 +2,15 @@ package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.Volts;
 
+import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants.SHOOTER_MOTOR_CONFIGS;
 
@@ -16,6 +18,8 @@ public class Shooter implements Subsystem {
     // define motors for left and right motors of the shooter
     private final TalonFX m_right_motor = new TalonFX(SHOOTER_MOTOR_CONFIGS.RIGHT_MOTOR_ID);
     private final TalonFX m_left_motor = new TalonFX(SHOOTER_MOTOR_CONFIGS.LEFT_MOTOR_ID);
+    private final VelocityVoltage m_velocityVoltage = new VelocityVoltage(0).withSlot(0);
+    public final StatusSignal<AngularVelocity> shooterAngularVelocity = m_left_motor.getVelocity();
 
     // Shooter motor configs
     private void applyShooterConfigs(TalonFX talonFXMotor, boolean isLeftMotor) {
@@ -23,9 +27,9 @@ public class Shooter implements Subsystem {
         shootConfigs.Voltage.withPeakForwardVoltage(Volts.of(SHOOTER_MOTOR_CONFIGS.PEEK_FORWARD_VOLTAGE))
                               .withPeakReverseVoltage(Volts.of(-SHOOTER_MOTOR_CONFIGS.PEEK_REVERSE_VOLTAGE));
         shootConfigs.CurrentLimits.withStatorCurrentLimitEnable(true).withStatorCurrentLimit(SHOOTER_MOTOR_CONFIGS.PEAK_AMPS);
-        shootConfigs.MotorOutput.Inverted = isLeftMotor ? InvertedValue.Clockwise_Positive : InvertedValue.CounterClockwise_Positive;
         talonFXMotor.getConfigurator().apply(shootConfigs);
-        talonFXMotor.setNeutralMode(NeutralModeValue.Brake);
+        talonFXMotor.setNeutralMode(NeutralModeValue.Coast);
+        
         // set slot 0 gains
         var shooterSlot0Configs = shootConfigs.Slot0;
         shooterSlot0Configs.kS = SHOOTER_MOTOR_CONFIGS.SLOT_0_kS; // Add 0.25 V output to overcome static friction
@@ -44,8 +48,8 @@ public class Shooter implements Subsystem {
     }
 
     // method to set shooter speed
-    public void setShooterSpeed(double speedMultiplier) {
-        m_left_motor.set(SHOOTER_MOTOR_CONFIGS.SHOOTER_MOTOR_MAX_SPEED * speedMultiplier);
+    public void setShooterSpeed(double speedInRPS) {
+        m_left_motor.setControl(m_velocityVoltage.withVelocity(speedInRPS));
     }
 
     // method to stop shooter
@@ -61,5 +65,9 @@ public class Shooter implements Subsystem {
     // method to set shooter to max speed
     public void setMaxSpeed() { 
         m_left_motor.set(SHOOTER_MOTOR_CONFIGS.SHOOTER_MOTOR_MAX_SPEED);
+    }
+
+    public boolean isAtSpeed() {
+        return shooterAngularVelocity.refresh().isNear(m_velocityVoltage.Velocity, SHOOTER_MOTOR_CONFIGS.SHOOTER_RPS_TOLERANCE);
     }
 }
