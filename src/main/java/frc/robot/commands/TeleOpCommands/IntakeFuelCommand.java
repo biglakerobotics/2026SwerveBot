@@ -23,7 +23,7 @@ public class IntakeFuelCommand extends Command {
             m_Intake.intakeFuel();
         } else {
             m_Intake.deployIntake();
-            m_Intake.intakeFuel();
+            // m_Intake.intakeFuel();
         }
     }
 

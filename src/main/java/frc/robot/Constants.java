@@ -67,26 +67,26 @@ public class Constants {
     }
     
     public static final double PIVOT_SPEED = .5;
-    public static final double INTAKE_DEPLOY_POSITION = 0;
-    public static final double INTAKE_RETRACT_POSITION = 10;
+    public static final double INTAKE_DEPLOY_POSITION = 0.00001;
+    public static final double INTAKE_RETRACT_POSITION = 0.231440;
 
     public static class PIVOT_MOTOR_CONFIGS {
         public static final int MOTOR_ID = 1;
         public static final double SLOT_0_kS = 0.25;
         public static final double SLOT_0_kV = 0.12;
         public static final double SLOT_0_kA = 0.03;
-        public static final double SLOT_0_kP = 4.8;
+        public static final double SLOT_0_kP = 20;
         public static final double SLOT_0_kI = 0;
-        public static final double SLOT_0_kD = 0.1;
-        public static final double SLOT_0_kG = .1;
+        public static final double SLOT_0_kD = 0.2;
+        public static final double SLOT_0_kG = 1; // Gravity Feed Forward
         public static final int MOTION_MAGIC_CRUISE_VELOCITY = 80;
-        public static final int MOTION_MAGIC_ACCELERATION = 160;
-        public static final int MOTION_MAGIC_JERK = 1600;
-        public static final double PEEK_FORWARD_VOLTAGE = 8;
+        public static final int MOTION_MAGIC_ACCELERATION = 100;
+        public static final int MOTION_MAGIC_JERK = 900;
+        public static final int PEEK_FORWARD_VOLTAGE = 12;
         public static final int PEEK_REVERSE_VOLTAGE = 8;
         public static final double PEAK_AMPS = 70;
-        public static final double SOFT_FORWARD_LIMIT = 0; // Ground, Intake deployed
-        public static final double SOFT_REVERSE_LIMIT = 10; // Up position, Intake retracted
+        public static final double SOFT_FORWARD_LIMIT = .231450; // Ground, Intake deployed
+        public static final double SOFT_REVERSE_LIMIT = 0.0; // Up position, Intake retracted
         public static final double SENSOR_TO_MECHANISM_RATIO = 25;
         public static final double INTAKE_POS_TOLERANCE_IN_ROTATIONS = .01;
     }
@@ -95,8 +95,8 @@ public class Constants {
         public static final int MOTOR_ID = 2;
         public static final double PEEK_FORWARD_VOLTAGE = 12;
         public static final double PEEK_REVERSE_VOLTAGE = 12;
-        public static final double PEAK_AMPS = 40;
-        public static final double INTAKE_MOTOR_SPEED = .5;
+        public static final double PEAK_AMPS = 70;
+        public static final double INTAKE_MOTOR_SPEED = .4;
     }
     
     public static class SHOOTER_MOTOR_CONFIGS {

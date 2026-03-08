@@ -27,7 +27,7 @@ public class Intake implements Subsystem {
         var pivotConfigs = new TalonFXConfiguration();
         pivotConfigs.Voltage.withPeakForwardVoltage(Volts.of(PIVOT_MOTOR_CONFIGS.PEEK_FORWARD_VOLTAGE))
                               .withPeakReverseVoltage(Volts.of(-PIVOT_MOTOR_CONFIGS.PEEK_REVERSE_VOLTAGE));
-        pivotConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+        pivotConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         pivotConfigs.CurrentLimits.withStatorCurrentLimitEnable(true).withStatorCurrentLimit(PIVOT_MOTOR_CONFIGS.PEAK_AMPS);
         pivotConfigs.SoftwareLimitSwitch.withForwardSoftLimitEnable(true).withForwardSoftLimitThreshold(PIVOT_MOTOR_CONFIGS.SOFT_FORWARD_LIMIT);
         pivotConfigs.SoftwareLimitSwitch.withReverseSoftLimitEnable(true).withReverseSoftLimitThreshold(PIVOT_MOTOR_CONFIGS.SOFT_REVERSE_LIMIT);
@@ -53,7 +53,8 @@ public class Intake implements Subsystem {
         motionMagicConfigs.MotionMagicJerk = PIVOT_MOTOR_CONFIGS.MOTION_MAGIC_JERK; // Target jerk
 
         talonFXMotor.getConfigurator().apply(pivotConfigs);
-        talonFXMotor.setPosition(0);
+        talonFXMotor.setPosition(Constants.INTAKE_RETRACT_POSITION);
+        // talonFXMotor.setPosition(0);
         talonFXMotor.setNeutralMode(NeutralModeValue.Brake);
     }
 
@@ -66,7 +67,7 @@ public class Intake implements Subsystem {
         intakeConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
         talonFXMotor.getConfigurator().apply(intakeConfigs);
-        talonFXMotor.setNeutralMode(NeutralModeValue.Brake);
+        talonFXMotor.setNeutralMode(NeutralModeValue.Coast);
     }
 
     // new talonFX motor - Pivot
@@ -113,6 +114,7 @@ public class Intake implements Subsystem {
     }
 
     public boolean isAtPosition() {
+        System.out.println("Current Intake Position: " + intakePosition.refresh().getValueAsDouble());
         return intakePosition.refresh().isNear(m_MotionMagicVoltage.Position, PIVOT_MOTOR_CONFIGS.INTAKE_POS_TOLERANCE_IN_ROTATIONS);
     }
 
