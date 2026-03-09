@@ -14,15 +14,13 @@ public class RetractIntakeCommand extends Command {
 
     @Override
     public void initialize() {
-        retracted = m_Intake.isRetracted();
+        m_Intake.retractIntake();
+        m_Intake.stopIntakeFuel();
     }
 
     @Override
-    public void execute() {
-        if (!retracted) {    
-            m_Intake.retractIntake();
-            m_Intake.stopIntakeFuel();
-        }
+    public boolean isFinished() {
+        return m_Intake.isRetracted();
     }
 
     @Override

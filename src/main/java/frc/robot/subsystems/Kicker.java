@@ -3,11 +3,13 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.VelocityVoltage;
+import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.units.measure.AngularVelocity;
+import edu.wpi.first.wpilibj.DutyCycle;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants.KICKER_MOTOR_CONFIGS;
 import frc.robot.Constants.SHOOTER_MOTOR_CONFIGS;
@@ -17,6 +19,7 @@ public class Kicker implements Subsystem {
     private final TalonFX m_kicker_motor = new TalonFX(KICKER_MOTOR_CONFIGS.KICKER_MOTOR_ID);
     public final StatusSignal<AngularVelocity> kickerAngularVelocity = m_kicker_motor.getVelocity();
     private final VelocityVoltage m_velocityVoltage = new VelocityVoltage(0).withSlot(0);
+    private final VoltageOut m_voltageOut = new VoltageOut(0);
 
         // configure motor in constructor
         private void applyKickerConfigs() {
@@ -24,7 +27,7 @@ public class Kicker implements Subsystem {
             kickerConfigs.Voltage.withPeakForwardVoltage(KICKER_MOTOR_CONFIGS.PEEK_FORWARD_VOLTAGE)
                                 .withPeakReverseVoltage(-KICKER_MOTOR_CONFIGS.PEEK_REVERSE_VOLTAGE);
             kickerConfigs.CurrentLimits.withStatorCurrentLimitEnable(true).withStatorCurrentLimit(KICKER_MOTOR_CONFIGS.PEAK_AMPS);
-            kickerConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+            kickerConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
             m_kicker_motor.getConfigurator().apply(kickerConfigs);
             m_kicker_motor.setNeutralMode(NeutralModeValue.Brake);
         }
@@ -40,7 +43,8 @@ public class Kicker implements Subsystem {
 
         // method to set kicker to default speed
         public void setDefaultKickerSpeed() {
-            m_kicker_motor.setControl(m_velocityVoltage.withVelocity(KICKER_MOTOR_CONFIGS.KICKER_MOTOR_SPEED));
+            // m_kicker_motor.setControl(m_velocityVoltage.withVelocity(KICKER_MOTOR_CONFIGS.KICKER_MOTOR_SPEED));
+            m_kicker_motor.setControl(m_voltageOut.withOutput(4));
         }
 
         // method to set kicker to reverse speed

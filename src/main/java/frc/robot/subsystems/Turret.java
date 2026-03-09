@@ -71,21 +71,12 @@ public class Turret implements Subsystem {
         applyTurretConfigs(turretMotor);
     }
 
-    // method to set turret motor speed
-    public void turretSpinToZeroPos() {
-        turretMotor.setControl(m_MotionMagicVoltage.withPosition(TURRET_MOTOR_CONFIGS.TURRET_ZERO_POS));
-    }
-
-    public void turretSpinToMaxPos() {
-        turretMotor.setControl(m_MotionMagicVoltage.withPosition(TURRET_MOTOR_CONFIGS.TURRET_MAX_POS));
-    }
-
     public void turretSpinToPosition(double position) {
         double targetPosition = MathUtil.inputModulus(position + TURRET_MOTOR_CONFIGS.TURRET_ZERO_POS_ROTATIONS_OFFSET, TURRET_MOTOR_CONFIGS.SOFT_REVERSE_LIMIT, TURRET_MOTOR_CONFIGS.SOFT_FORWARD_LIMIT);
         turretMotor.setControl(m_MotionMagicVoltage.withPosition(targetPosition));
     }
 
-    public boolean isPosistinReachable(double position) {
+    public boolean isPositoinReachable(double position) {
         double targetPosition = MathUtil.inputModulus(position + TURRET_MOTOR_CONFIGS.TURRET_ZERO_POS_ROTATIONS_OFFSET, TURRET_MOTOR_CONFIGS.SOFT_REVERSE_LIMIT, TURRET_MOTOR_CONFIGS.SOFT_FORWARD_LIMIT);
         return targetPosition >= TURRET_MOTOR_CONFIGS.SOFT_REVERSE_LIMIT && targetPosition <= TURRET_MOTOR_CONFIGS.SOFT_FORWARD_LIMIT;
     }
@@ -100,5 +91,13 @@ public class Turret implements Subsystem {
 
     public void stopTurret() {
         turretMotor.stopMotor();
+    }
+
+    /**
+     * Sets the turret's zero position. The zero position as all the way clockwise (when viewed from the top). Use this
+     * after manually moving the turret to the zero position.
+     */
+    public void resetZeroPosition() {
+        turretMotor.setPosition(0);
     }
 }

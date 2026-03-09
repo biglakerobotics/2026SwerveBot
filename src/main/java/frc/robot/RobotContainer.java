@@ -13,6 +13,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants.SHOOTING_CONSTANTS;
@@ -111,6 +112,10 @@ public class RobotContainer {
 
         // Reset the field-centric heading on left bumper press.
         driveXboxController.back().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+        driveXboxController.start().onTrue(Commands.runOnce(() -> {
+            m_intake.resetPositionToRetracted();
+            m_Turret.resetZeroPosition();
+        }, m_intake, m_Turret).ignoringDisable(true));
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
@@ -118,7 +123,7 @@ public class RobotContainer {
         // Configure Operator Bindings
         driveXboxController.rightTrigger().whileTrue(mAutoShoot);
         driveXboxController.leftTrigger().whileTrue(mAutoIntake);
-        driveXboxController.leftBumper().whileTrue(mAutoRetractIntake);
+        driveXboxController.leftBumper().onTrue(mAutoRetractIntake);
     }
 
     public Command getAutonomousCommand() {

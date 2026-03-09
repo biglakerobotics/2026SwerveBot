@@ -1,10 +1,12 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.PositionVoltage;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -64,6 +66,7 @@ public class Intake implements Subsystem {
         intakeConfigs.Voltage.withPeakForwardVoltage(Volts.of(INTAKE_MOTOR_CONFIGS.PEEK_FORWARD_VOLTAGE))
                               .withPeakReverseVoltage(Volts.of(-INTAKE_MOTOR_CONFIGS.PEEK_REVERSE_VOLTAGE));
         intakeConfigs.CurrentLimits.withStatorCurrentLimitEnable(true).withStatorCurrentLimit(INTAKE_MOTOR_CONFIGS.PEAK_AMPS);
+        intakeConfigs.Slot0 = Slot0Configs.from(INTAKE_MOTOR_CONFIGS.INTAKE_MOTOR_SLOT_CONFIG);
         intakeConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
         talonFXMotor.getConfigurator().apply(intakeConfigs);
@@ -75,11 +78,9 @@ public class Intake implements Subsystem {
     // new talonFX motor - Intake
     private TalonFX intakeMotor = new TalonFX(INTAKE_MOTOR_CONFIGS.MOTOR_ID);
 
-    public final PositionVoltage m_positionVoltage = new PositionVoltage(0).withSlot(0);
     public final MotionMagicVoltage m_MotionMagicVoltage = new MotionMagicVoltage(0).withEnableFOC(true);
-    public final PositionTorqueCurrentFOC m_positionTorque = new PositionTorqueCurrentFOC(0).withSlot(1);
+    public final VelocityVoltage m_VelocityVoltageIntake = new VelocityVoltage(0).withEnableFOC(true);
     public final StatusSignal<Angle> intakePosition = pivotMotor.getPosition();
-
 
     
      // constructor
@@ -98,15 +99,15 @@ public class Intake implements Subsystem {
     }
 
     public void stopIntakePivot() {
-        pivotMotor.setControl(m_positionVoltage.withPosition(pivotMotor.getPosition().getValueAsDouble()));
+        pivotMotor.stopMotor();
     }
 
     public void intakeFuel() {
-        intakeMotor.set(INTAKE_MOTOR_CONFIGS.INTAKE_MOTOR_SPEED);
+        intakeMotor.setControl(m_VelocityVoltageIntake.withVelocity(INTAKE_MOTOR_CONFIGS.INTAKE_MOTOR_SPEED));
     }
     
     public void reverseIntakeFuel() {
-        intakeMotor.set(-INTAKE_MOTOR_CONFIGS.INTAKE_MOTOR_SPEED);
+        intakeMotor.setControl(m_VelocityVoltageIntake.withVelocity(-INTAKE_MOTOR_CONFIGS.INTAKE_MOTOR_SPEED));
     }
 
     public void stopIntakeFuel() {
@@ -124,5 +125,13 @@ public class Intake implements Subsystem {
 
     public boolean isRetracted() {
         return (isAtPosition() && intakePosition.refresh().isNear(Constants.INTAKE_RETRACT_POSITION, PIVOT_MOTOR_CONFIGS.INTAKE_POS_TOLERANCE_IN_ROTATIONS));
+    }
+
+    /**
+     * Resets the motor's encoder to the retracted position. Use this to reset the position after manually moving the
+     * intake to the retracted position.
+     */
+    public void resetPositionToRetracted() {
+        pivotMotor.setPosition(Constants.INTAKE_RETRACT_POSITION);
     }
 }

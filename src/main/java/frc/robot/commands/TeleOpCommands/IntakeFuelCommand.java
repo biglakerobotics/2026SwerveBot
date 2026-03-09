@@ -5,7 +5,6 @@ import frc.robot.subsystems.Intake;
 
 public class IntakeFuelCommand extends Command {
     Intake m_Intake;
-    boolean deployed = false;
     
     public IntakeFuelCommand(Intake intake) {
         m_Intake = intake;
@@ -14,16 +13,15 @@ public class IntakeFuelCommand extends Command {
 
     @Override
     public void initialize() {
-        deployed = m_Intake.isDeployed();
+        m_Intake.deployIntake();
     }
 
     @Override
     public void execute() {
-        if (deployed) {    
+        if (m_Intake.isDeployed()) {    
             m_Intake.intakeFuel();
         } else {
             m_Intake.deployIntake();
-            // m_Intake.intakeFuel();
         }
     }
 

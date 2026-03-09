@@ -2,6 +2,7 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.Inches;
 
+import com.ctre.phoenix6.configs.SlotConfigs;
 import com.pathplanner.lib.util.FlippingUtil;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
@@ -67,28 +68,28 @@ public class Constants {
     }
     
     public static final double PIVOT_SPEED = .5;
-    public static final double INTAKE_DEPLOY_POSITION = 0.00001;
-    public static final double INTAKE_RETRACT_POSITION = 0.231440;
+    public static final double INTAKE_DEPLOY_POSITION = 0.05;
+    public static final double INTAKE_RETRACT_POSITION = 0.293;
 
     public static class PIVOT_MOTOR_CONFIGS {
         public static final int MOTOR_ID = 1;
-        public static final double SLOT_0_kS = 0.25;
-        public static final double SLOT_0_kV = 0.12;
-        public static final double SLOT_0_kA = 0.03;
-        public static final double SLOT_0_kP = 20;
-        public static final double SLOT_0_kI = 0;
-        public static final double SLOT_0_kD = 0.2;
-        public static final double SLOT_0_kG = 1; // Gravity Feed Forward
-        public static final int MOTION_MAGIC_CRUISE_VELOCITY = 80;
-        public static final int MOTION_MAGIC_ACCELERATION = 100;
-        public static final int MOTION_MAGIC_JERK = 900;
-        public static final int PEEK_FORWARD_VOLTAGE = 12;
-        public static final int PEEK_REVERSE_VOLTAGE = 8;
+        public static final double SLOT_0_kS = 0.0;
+        public static final double SLOT_0_kV = 0.0;
+        public static final double SLOT_0_kA = 0.0;
+        public static final double SLOT_0_kP = 18;
+        public static final double SLOT_0_kI = 0.0;
+        public static final double SLOT_0_kD = 0.0;
+        public static final double SLOT_0_kG = 0.65; // Gravity Feed Forward
+        public static final double MOTION_MAGIC_CRUISE_VELOCITY = 10.0;
+        public static final double MOTION_MAGIC_ACCELERATION = 10.0;
+        public static final double MOTION_MAGIC_JERK = 0;
+        public static final double PEEK_FORWARD_VOLTAGE = 12;
+        public static final double PEEK_REVERSE_VOLTAGE = 8;
         public static final double PEAK_AMPS = 70;
-        public static final double SOFT_FORWARD_LIMIT = .231450; // Ground, Intake deployed
-        public static final double SOFT_REVERSE_LIMIT = 0.0; // Up position, Intake retracted
+        public static final double SOFT_FORWARD_LIMIT = 0.29; // Ground, Intake deployed
+        public static final double SOFT_REVERSE_LIMIT = 0.05; // Up position, Intake retracted
         public static final double SENSOR_TO_MECHANISM_RATIO = 25;
-        public static final double INTAKE_POS_TOLERANCE_IN_ROTATIONS = .01;
+        public static final double INTAKE_POS_TOLERANCE_IN_ROTATIONS = .02;
     }
 
     public static class INTAKE_MOTOR_CONFIGS {
@@ -96,7 +97,8 @@ public class Constants {
         public static final double PEEK_FORWARD_VOLTAGE = 12;
         public static final double PEEK_REVERSE_VOLTAGE = 12;
         public static final double PEAK_AMPS = 70;
-        public static final double INTAKE_MOTOR_SPEED = .4;
+        public static final double INTAKE_MOTOR_SPEED = 40;
+        public static final SlotConfigs INTAKE_MOTOR_SLOT_CONFIG = new SlotConfigs().withKP(0.35);
     }
     
     public static class SHOOTER_MOTOR_CONFIGS {
@@ -107,12 +109,12 @@ public class Constants {
         public static final int PEAK_AMPS = 40;
         public static final double SHOOTER_MOTOR_PASS_SPEED = 0.6;
         public static final double SHOOTER_MOTOR_MAX_SPEED = 1.0;
-        public static final double SLOT_0_kS = 0.25;
-        public static final double SLOT_0_kV = 0.12;
-        public static final double SLOT_0_kA = 0.03;
-        public static final double SLOT_0_kP = 4.8;
+        public static final double SLOT_0_kS = 0;
+        public static final double SLOT_0_kV = 0.118;
+        public static final double SLOT_0_kA = 0;
+        public static final double SLOT_0_kP = 0.6;
         public static final double SLOT_0_kI = 0;
-        public static final double SLOT_0_kD = 0.1;
+        public static final double SLOT_0_kD = 0;
         public static final double SHOOTER_RPS_TOLERANCE = 1.5;
     }
 
@@ -120,8 +122,15 @@ public class Constants {
         public static final int SPINDEXER_MOTOR_ID = 6;
         public static final double PEEK_FORWARD_VOLTAGE = 12.0;
         public static final double PEEK_REVERSE_VOLTAGE = 12.0;
-        public static final int PEAK_AMPS = 20;
-        public static final double SPINDEXER_MOTOR_SPEED = 0.3;
+        public static final int STATOR_PEAK_AMPS = 160;
+        public static final int SUPPLY_PEAK_AMPS = 50;
+        public static final double SPINDEXER_MOTOR_SPEED = 15;
+        public static final double SLOT_0_kS = 0;
+        public static final double SLOT_0_kV = 0.118;
+        public static final double SLOT_0_kA = 0;
+        public static final double SLOT_0_kP = 0.6;
+        public static final double SLOT_0_kI = 0;
+        public static final double SLOT_0_kD = 0;
     }
 
     public static class KICKER_MOTOR_CONFIGS {
@@ -151,26 +160,24 @@ public class Constants {
 
     public static class TURRET_MOTOR_CONFIGS{
         public static final int MOTOR_ID = 7;
-        public static final double SLOT_0_kS = 0.25;
-        public static final double SLOT_0_kV = 0.12;
-        public static final double SLOT_0_kA = 0.03;
-        public static final double SLOT_0_kP = 4.8;
-        public static final double SLOT_0_kI = 0;
-        public static final double SLOT_0_kD = 0.1;
-        public static final int MOTION_MAGIC_CRUISE_VELOCITY = 80;
-        public static final int MOTION_MAGIC_ACCELERATION = 160;
-        public static final int MOTION_MAGIC_JERK = 1600;
+        public static final double SLOT_0_kS = 0.2;
+        public static final double SLOT_0_kV = 0.0;
+        public static final double SLOT_0_kA = 0.0;
+        public static final double SLOT_0_kP = 3.3;
+        public static final double SLOT_0_kI = 0.0;
+        public static final double SLOT_0_kD = 0.06;
+        public static final int MOTION_MAGIC_CRUISE_VELOCITY = 20;
+        public static final int MOTION_MAGIC_ACCELERATION = 40;
+        public static final int MOTION_MAGIC_JERK = 0;
         public static final double PEEK_FORWARD_VOLTAGE = 12;
         public static final double PEEK_REVERSE_VOLTAGE = 12;
         public static final double PEAK_AMPS = 70;
-        public static final double SOFT_FORWARD_LIMIT = 10;
-        public static final double SOFT_REVERSE_LIMIT = 0;
+        public static final double SOFT_FORWARD_LIMIT = 0.505;
+        public static final double SOFT_REVERSE_LIMIT = 0.005;
         public static final double kTurretRotationsPerTick = 14.0 / 50.0 * 14.0 / 322.0;
         public static final double TURRET_SPEED = 0;
         // Turret Pos values
-        public static final double TURRET_ZERO_POS = 0;
-        public static final double TURRET_MAX_POS = 200;
-        public static final double TURRET_ZERO_POS_ROTATIONS_OFFSET = 10;
+        public static final double TURRET_ZERO_POS_ROTATIONS_OFFSET = -0.256104;
         public static final double TURRET_X_OFFSET_METERS = -0.1016; // 13 - 9 INCHES CONVERTED TO METERS
         public static final double TURRET_Y_OFFSET_METERS = 0; // 0 INCHES CONVERTED TO METERS
         public static final double TURRET_Z_OFFSET_METERS = 0.37465; // 14.75 INCHES CONVERTED TO METERS
@@ -178,8 +185,8 @@ public class Constants {
             new Translation3d(TURRET_X_OFFSET_METERS, TURRET_Y_OFFSET_METERS, TURRET_Z_OFFSET_METERS), 
             new Rotation3d(0, 0, 0)
         );
-        public static final double SENSOR_TO_MECHANISM_RATIO = 10;
-        public static final double TURRET_POS_TOLERANCE_IN_ROTATIONS = 0.0082; 
+        public static final double SENSOR_TO_MECHANISM_RATIO = 7.485352; // This is a from what we observed, it could be replaced with the perfect value if you know the gearing
+        public static final double TURRET_POS_TOLERANCE_IN_ROTATIONS = 0.02;
 
     }
 

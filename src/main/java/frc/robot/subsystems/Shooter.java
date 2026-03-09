@@ -27,8 +27,6 @@ public class Shooter implements Subsystem {
         shootConfigs.Voltage.withPeakForwardVoltage(Volts.of(SHOOTER_MOTOR_CONFIGS.PEEK_FORWARD_VOLTAGE))
                               .withPeakReverseVoltage(Volts.of(-SHOOTER_MOTOR_CONFIGS.PEEK_REVERSE_VOLTAGE));
         shootConfigs.CurrentLimits.withStatorCurrentLimitEnable(true).withStatorCurrentLimit(SHOOTER_MOTOR_CONFIGS.PEAK_AMPS);
-        talonFXMotor.getConfigurator().apply(shootConfigs);
-        talonFXMotor.setNeutralMode(NeutralModeValue.Coast);
         
         // set slot 0 gains
         var shooterSlot0Configs = shootConfigs.Slot0;
@@ -38,6 +36,9 @@ public class Shooter implements Subsystem {
         shooterSlot0Configs.kP = SHOOTER_MOTOR_CONFIGS.SLOT_0_kP; // A position error of 2.5 rotations results in 12 V output
         shooterSlot0Configs.kI = SHOOTER_MOTOR_CONFIGS.SLOT_0_kI; // no output for integrated error
         shooterSlot0Configs.kD = SHOOTER_MOTOR_CONFIGS.SLOT_0_kD; // A velocity error of 1 rps results in 0.1 V output
+
+        talonFXMotor.getConfigurator().apply(shootConfigs);
+        talonFXMotor.setNeutralMode(NeutralModeValue.Coast);
     }
     
     // configure motors in constructor
