@@ -51,12 +51,12 @@ public class Constants {
         public static final Transform3d CameraLeft = new Transform3d(
             new Translation3d(Units.inchesToMeters(-11.75), Units.inchesToMeters(3.5), 
             Units.inchesToMeters(6.25)), 
-            new Rotation3d(0, Units.degreesToRadians(65), Units.degreesToRadians(210))
+            new Rotation3d(0, Units.degreesToRadians(15), Units.degreesToRadians(210))
         );
         public static final Transform3d CameraRight = new Transform3d(
             new Translation3d(Units.inchesToMeters(-11.75), Units.inchesToMeters(7.25), 
             Units.inchesToMeters(6.25)), 
-            new Rotation3d(0, Units.degreesToRadians(65), Units.degreesToRadians(150))
+            new Rotation3d(0, Units.degreesToRadians(15), Units.degreesToRadians(150))
         );
         public static final String[] CAMERA_NAMES = {PHOTON_CAMERA_LEFT, PHOTON_CAMERA_RIGHT};
         
@@ -160,12 +160,12 @@ public class Constants {
 
     public static class TURRET_MOTOR_CONFIGS{
         public static final int MOTOR_ID = 7;
-        public static final double SLOT_0_kS = 0.2;
+        public static final double SLOT_0_kS = 3.0;
         public static final double SLOT_0_kV = 0.0;
         public static final double SLOT_0_kA = 0.0;
-        public static final double SLOT_0_kP = 3.3;
+        public static final double SLOT_0_kP = 30.0;
         public static final double SLOT_0_kI = 0.0;
-        public static final double SLOT_0_kD = 0.06;
+        public static final double SLOT_0_kD = 3.0;
         public static final int MOTION_MAGIC_CRUISE_VELOCITY = 20;
         public static final int MOTION_MAGIC_ACCELERATION = 40;
         public static final int MOTION_MAGIC_JERK = 0;
@@ -177,7 +177,7 @@ public class Constants {
         public static final double kTurretRotationsPerTick = 14.0 / 50.0 * 14.0 / 322.0;
         public static final double TURRET_SPEED = 0;
         // Turret Pos values
-        public static final double TURRET_ZERO_POS_ROTATIONS_OFFSET = -0.256104;
+        public static final double TURRET_ZERO_POS_ROTATIONS_OFFSET = -0.256836;
         public static final double TURRET_X_OFFSET_METERS = -0.1016; // 13 - 9 INCHES CONVERTED TO METERS
         public static final double TURRET_Y_OFFSET_METERS = 0; // 0 INCHES CONVERTED TO METERS
         public static final double TURRET_Z_OFFSET_METERS = 0.37465; // 14.75 INCHES CONVERTED TO METERS
