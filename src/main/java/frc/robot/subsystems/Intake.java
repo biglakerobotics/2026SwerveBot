@@ -115,7 +115,7 @@ public class Intake implements Subsystem {
     }
 
     public boolean isAtPosition() {
-        System.out.println("Current Intake Position: " + intakePosition.refresh().getValueAsDouble());
+        //System.out.println("Current Intake Position: " + intakePosition.refresh().getValueAsDouble());
         return intakePosition.refresh().isNear(m_MotionMagicVoltage.Position, PIVOT_MOTOR_CONFIGS.INTAKE_POS_TOLERANCE_IN_ROTATIONS);
     }
 

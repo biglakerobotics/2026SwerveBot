@@ -62,7 +62,7 @@ public class ShootAtTargetCommand extends Command{
         var angleToTarget = targetTranslation.minus(turretTranslation).getAngle();
         m_turret.turretSpinToPosition(angleToTarget.minus(robotPose.getRotation()).getRotations());
 
-        System.out.println(m_turret.isAtPosition());
+        // System.out.println(m_turret.isAtPosition());
 
         //if shooter is at speed, and turret is at position, then kick
         if (shooting || m_shooter.isAtSpeed() && m_turret.isAtPosition()) {

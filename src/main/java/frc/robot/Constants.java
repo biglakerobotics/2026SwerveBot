@@ -17,6 +17,7 @@ import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.Unit;
 
 public class Constants {
     public static final double MAX_FORWARD_SPEED = 6;
@@ -43,8 +44,8 @@ public class Constants {
         public static final AprilTagFieldLayout APRIL_TAG_FIELD_LAYOUT = AprilTagFieldLayout
         .loadField(AprilTagFields.k2026RebuiltWelded);
 
-        public static final Matrix<N3, N1> SINGLE_TAG_STD_DEVS = VecBuilder.fill(2, 2, 8);
-        public static final Matrix<N3, N1> MULTI_TAG_STD_DEVS = VecBuilder.fill(0.5, 0.5, 1.0);
+        public static final Matrix<N3, N1> SINGLE_TAG_STD_DEVS = VecBuilder.fill(2.5,2.5, 10);
+        public static final Matrix<N3, N1> MULTI_TAG_STD_DEVS = VecBuilder.fill(0.2, 0.2, 1.0);
    
         
 
@@ -67,7 +68,7 @@ public class Constants {
 
     }
     
-    public static final double PIVOT_SPEED = .5;
+    public static final double PIVOT_SPEED = .25;
     public static final double INTAKE_DEPLOY_POSITION = 0.05;
     public static final double INTAKE_RETRACT_POSITION = 0.293;
 
@@ -124,7 +125,7 @@ public class Constants {
         public static final double PEEK_REVERSE_VOLTAGE = 12.0;
         public static final int STATOR_PEAK_AMPS = 160;
         public static final int SUPPLY_PEAK_AMPS = 50;
-        public static final double SPINDEXER_MOTOR_SPEED = 15;
+        public static final double SPINDEXER_MOTOR_SPEED = 8;
         public static final double SLOT_0_kS = 0;
         public static final double SLOT_0_kV = 0.118;
         public static final double SLOT_0_kA = 0;
@@ -193,8 +194,9 @@ public class Constants {
     public static class SHOOTING_CONSTANTS {
         private static InterpolatingDoubleTreeMap createShooterLookup() {
             var map = new InterpolatingDoubleTreeMap();
-            map.put(Units.inchesToMeters(40), 20.0); 
-            map.put(Units.inchesToMeters(127), 50.0);
+            map.put(Units.inchesToMeters(60), 45.0); 
+            map.put(Units.inchesToMeters(153), 65.0);
+            map.put(Units.inchesToMeters(216), 75.0);
             return map;
         }
         public static final InterpolatingDoubleTreeMap SHOOT_LOOKUP_TABLE = createShooterLookup();
