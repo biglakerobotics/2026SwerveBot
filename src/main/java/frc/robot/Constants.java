@@ -1,5 +1,6 @@
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Inches;
 
 import com.ctre.phoenix6.configs.SlotConfigs;
@@ -18,6 +19,7 @@ import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.Unit;
+import edu.wpi.first.units.measure.Current;
 
 public class Constants {
     public static final double MAX_FORWARD_SPEED = 6;
@@ -52,11 +54,11 @@ public class Constants {
         public static final Transform3d CameraLeft = new Transform3d(
             new Translation3d(Units.inchesToMeters(-11.75), Units.inchesToMeters(3.5), 
             Units.inchesToMeters(6.25)), 
-            new Rotation3d(0, Units.degreesToRadians(15), Units.degreesToRadians(210))
+            new Rotation3d(0, Units.degreesToRadians(15), Units.degreesToRadians(-150))
         );
         public static final Transform3d CameraRight = new Transform3d(
-            new Translation3d(Units.inchesToMeters(-11.75), Units.inchesToMeters(7.25), 
-            Units.inchesToMeters(6.25)), 
+            new Translation3d(Units.inchesToMeters(-11.75), Units.inchesToMeters(-3.5), 
+            Units.inchesToMeters(7.25)), 
             new Rotation3d(0, Units.degreesToRadians(15), Units.degreesToRadians(150))
         );
         public static final String[] CAMERA_NAMES = {PHOTON_CAMERA_LEFT, PHOTON_CAMERA_RIGHT};
@@ -69,7 +71,7 @@ public class Constants {
     }
     
     public static final double PIVOT_SPEED = .25;
-    public static final double INTAKE_DEPLOY_POSITION = 0.05;
+    public static final double INTAKE_DEPLOY_POSITION = 0.029;
     public static final double INTAKE_RETRACT_POSITION = 0.293;
 
     public static class PIVOT_MOTOR_CONFIGS {
@@ -85,12 +87,13 @@ public class Constants {
         public static final double MOTION_MAGIC_ACCELERATION = 10.0;
         public static final double MOTION_MAGIC_JERK = 0;
         public static final double PEEK_FORWARD_VOLTAGE = 12;
-        public static final double PEEK_REVERSE_VOLTAGE = 8;
+        public static final double PEEK_REVERSE_VOLTAGE = 12;
         public static final double PEAK_AMPS = 70;
-        public static final double SOFT_FORWARD_LIMIT = 0.29; // Ground, Intake deployed
-        public static final double SOFT_REVERSE_LIMIT = 0.05; // Up position, Intake retracted
+        public static final double SOFT_FORWARD_LIMIT = 0.29; // Up
+        public static final double SOFT_REVERSE_LIMIT = 0.027; // Deployed
         public static final double SENSOR_TO_MECHANISM_RATIO = 25;
-        public static final double INTAKE_POS_TOLERANCE_IN_ROTATIONS = .02;
+        public static final double INTAKE_POS_TOLERANCE_IN_ROTATIONS = .03;
+        public static final Current DEPLOY_WITH_TORQUE_FOC = Amps.of(-20);
     }
 
     public static class INTAKE_MOTOR_CONFIGS {
@@ -98,7 +101,7 @@ public class Constants {
         public static final double PEEK_FORWARD_VOLTAGE = 12;
         public static final double PEEK_REVERSE_VOLTAGE = 12;
         public static final double PEAK_AMPS = 70;
-        public static final double INTAKE_MOTOR_SPEED = 40;
+        public static final double INTAKE_MOTOR_SPEED = 50;
         public static final SlotConfigs INTAKE_MOTOR_SLOT_CONFIG = new SlotConfigs().withKP(0.35);
     }
     
@@ -109,7 +112,8 @@ public class Constants {
         public static final double PEEK_REVERSE_VOLTAGE = 12.0;
         public static final int PEAK_AMPS = 40;
         public static final double SHOOTER_MOTOR_PASS_SPEED = 0.6;
-        public static final double SHOOTER_MOTOR_MAX_SPEED = 1.0;
+        public static final double SHOOTER_MOTOR_MAX_SPEED = 1.01;
+        //                                             change baclk to 1.0
         public static final double SLOT_0_kS = 0;
         public static final double SLOT_0_kV = 0.118;
         public static final double SLOT_0_kA = 0;
@@ -123,13 +127,13 @@ public class Constants {
         public static final int SPINDEXER_MOTOR_ID = 6;
         public static final double PEEK_FORWARD_VOLTAGE = 12.0;
         public static final double PEEK_REVERSE_VOLTAGE = 12.0;
-        public static final int STATOR_PEAK_AMPS = 160;
-        public static final int SUPPLY_PEAK_AMPS = 50;
-        public static final double SPINDEXER_MOTOR_SPEED = 8;
+        public static final int STATOR_PEAK_AMPS = 80;
+        public static final int SUPPLY_PEAK_AMPS = 40;
+        public static final double SPINDEXER_MOTOR_SPEED = 12;
         public static final double SLOT_0_kS = 0;
         public static final double SLOT_0_kV = 0.118;
         public static final double SLOT_0_kA = 0;
-        public static final double SLOT_0_kP = 0.6;
+        public static final double SLOT_0_kP = 1.2;
         public static final double SLOT_0_kI = 0;
         public static final double SLOT_0_kD = 0;
     }
@@ -139,7 +143,7 @@ public class Constants {
         public static final double PEEK_FORWARD_VOLTAGE = 12.0;
         public static final double PEEK_REVERSE_VOLTAGE = 12.0;
         public static final int PEAK_AMPS = 20;
-        public static final double KICKER_MOTOR_SPEED = 20; // in Rotations Per Second
+        public static final double KICKER_MOTOR_SPEED = 25; // in Rotations Per Second
         public static final double KICKER_RPS_TOLERANCE = 4;
     }
 
@@ -194,17 +198,17 @@ public class Constants {
     public static class SHOOTING_CONSTANTS {
         private static InterpolatingDoubleTreeMap createShooterLookup() {
             var map = new InterpolatingDoubleTreeMap();
-            map.put(Units.inchesToMeters(60), 45.0); 
-            map.put(Units.inchesToMeters(153), 65.0);
-            map.put(Units.inchesToMeters(216), 75.0);
+            map.put(Units.inchesToMeters(60), 50.0); 
+            map.put(Units.inchesToMeters(153), 63.0);
+            map.put(Units.inchesToMeters(216), 73.0);
             return map;
         }
         public static final InterpolatingDoubleTreeMap SHOOT_LOOKUP_TABLE = createShooterLookup();
         
         private static InterpolatingDoubleTreeMap createShuttleLookup() {
             var map = new InterpolatingDoubleTreeMap();
-            map.put(Units.inchesToMeters(40), 20.0); 
-            map.put(Units.inchesToMeters(127), 50.0);
+            map.put(Units.inchesToMeters(60), 40.0); 
+            map.put(Units.inchesToMeters(216), 65.0);
             return map;
         }
         public static final InterpolatingDoubleTreeMap SHUTTLE_LOOKUP_TABLE = createShuttleLookup();

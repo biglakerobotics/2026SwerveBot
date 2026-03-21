@@ -3,42 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.7237386363636364,
-        "y": 5.498568181818182
+        "x": 7.5,
+        "y": 0.5925227272727271
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.940420454545453,
-        "y": 8.332943181818182
+        "x": 7.5112007048943505,
+        "y": 1.34359227659982
       },
       "isLocked": false,
-      "linkedName": "BlueGrabBallsEnd"
+      "linkedName": "MoveAcrossTrench"
     },
     {
       "anchor": {
-        "x": 2.542432915921288,
-        "y": 6.330894454382826
+        "x": 7.5,
+        "y": 3.086772727272728
       },
       "prevControl": {
-        "x": 3.1268977272709195,
-        "y": 7.714534090907719
+        "x": 7.5007153166347384,
+        "y": 2.0405629727359136
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "MoveToTrenchLeftBlue"
+      "linkedName": "RightGrabBalls"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.33176100628930816,
-      "rotationDegrees": 90.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 1.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -47,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 145.98315981068177
+    "rotation": 90.0
   },
   "reversed": false,
   "folder": "Blue",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 90.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

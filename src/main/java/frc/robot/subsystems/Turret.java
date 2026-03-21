@@ -85,6 +85,10 @@ public class Turret implements Subsystem {
         return turretPosition.refresh().isNear(m_MotionMagicVoltage.Position, TURRET_MOTOR_CONFIGS.TURRET_POS_TOLERANCE_IN_ROTATIONS);
     }
 
+    public boolean isAtPositionMoving() {
+        return turretPosition.refresh().isNear(m_MotionMagicVoltage.Position, TURRET_MOTOR_CONFIGS.TURRET_POS_TOLERANCE_IN_ROTATIONS * 3);
+    }
+
     public static Translation2d GetTurretTranslation(Pose2d robotPose) {
         return robotPose.getTranslation().plus(new Translation2d(TURRET_MOTOR_CONFIGS.TURRET_X_OFFSET_METERS, TURRET_MOTOR_CONFIGS.TURRET_Y_OFFSET_METERS).rotateBy(robotPose.getRotation()));
     }

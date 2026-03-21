@@ -4,36 +4,45 @@
     {
       "anchor": {
         "x": 7.5,
-        "y": 7.281647727272728
+        "y": 3.086772727272728
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.520431818181818,
-        "y": 5.075988636363636
+        "x": 7.500787119856888,
+        "y": 2.225867620751342
       },
       "isLocked": false,
-      "linkedName": "MoveToBallsFromBlueTrenchLeft"
+      "linkedName": "RightGrabBalls"
     },
     {
       "anchor": {
-        "x": 7.5,
-        "y": 5.158443181818182
+        "x": 7.75,
+        "y": 0.6195527728085859
       },
       "prevControl": {
-        "x": 7.5,
-        "y": 7.2610340909090905
+        "x": 7.750787119856888,
+        "y": 1.4308228980321984
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "MoveOverBalls"
+      "linkedName": "MoveToTrePosFromBalls"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.19251336898395768,
+      "rotationDegrees": 90.0
+    },
+    {
+      "waypointRelativePos": 0.6951871657754018,
+      "rotationDegrees": 180.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 0.6,
+    "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -42,13 +51,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "Blue",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 90.0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

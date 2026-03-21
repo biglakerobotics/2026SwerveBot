@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.5,
-        "y": 7.281647727272728
+        "x": 2.542432915921288,
+        "y": 0.9602862254025035
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.520431818181818,
-        "y": 5.075988636363636
+        "x": 3.353703041144901,
+        "y": 0.603327370304114
       },
       "isLocked": false,
-      "linkedName": "MoveToBallsFromBlueTrenchLeft"
+      "linkedName": "FirstRightShootEnd"
     },
     {
       "anchor": {
-        "x": 7.5,
-        "y": 5.158443181818182
+        "x": 3.539170454545454,
+        "y": 0.5822159090909098
       },
       "prevControl": {
-        "x": 7.5,
-        "y": 7.2610340909090905
+        "x": 2.6115568181818176,
+        "y": 0.9223409090909104
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "MoveOverBalls"
+      "linkedName": "PositionToRightTrenchCross"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 0.6,
+    "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "Blue",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 180.0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

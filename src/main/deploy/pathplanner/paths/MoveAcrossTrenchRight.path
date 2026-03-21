@@ -3,48 +3,60 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.672236135957066,
-        "y": 7.436
+        "x": 2.542432915921288,
+        "y": 0.9602862254025035
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.078008333561949,
-        "y": 7.402279725968233
+        "x": 3.446409090909091,
+        "y": 0.7574318181818183
       },
       "isLocked": false,
-      "linkedName": "MoveToTrenchLeftBlue"
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.260647727272727,
+        "y": 0.582
+      },
+      "prevControl": {
+        "x": 3.9301859971707622,
+        "y": 0.582
+      },
+      "nextControl": {
+        "x": 4.510647727272728,
+        "y": 0.582
+      },
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
         "x": 7.5,
-        "y": 7.281647727272728
+        "y": 0.5822159090909098
       },
       "prevControl": {
-        "x": 6.6827499999999995,
-        "y": 7.518704545454545
+        "x": 7.164375795474726,
+        "y": 0.5822159090909098
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "MoveToBallsFromBlueTrenchLeft"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.6390374331550808,
+      "waypointRelativePos": 1.5345911949685562,
       "rotationDegrees": 180.0
-    },
-    {
-      "waypointRelativePos": 0.9795597484276738,
-      "rotationDegrees": -65.0
     }
   ],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.49192100538599715,
-      "maxWaypointRelativePos": 1.0,
+      "minWaypointRelativePos": 1.5188509874326737,
+      "maxWaypointRelativePos": 1.7342908438061049,
       "constraints": {
-        "maxVelocity": 2.0,
+        "maxVelocity": 1.5,
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -65,7 +77,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 90.0
   },
   "reversed": false,
   "folder": "Blue",

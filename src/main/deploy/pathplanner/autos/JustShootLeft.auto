@@ -5,22 +5,9 @@
     "data": {
       "commands": [
         {
-          "type": "race",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "RedShootMiddle"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.25
-                }
-              }
-            ]
+            "pathName": "MoveToTrenchLeftBlue"
           }
         },
         {
@@ -36,7 +23,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.5
+                  "waitTime": 5.0
                 }
               }
             ]
@@ -46,6 +33,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Red Start",
+  "folder": "Blue Start",
   "choreoAuto": false
 }

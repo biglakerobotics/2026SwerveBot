@@ -6,6 +6,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.PositionVoltage;
+import com.ctre.phoenix6.controls.TorqueCurrentFOC;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.GravityTypeValue;
@@ -34,7 +35,7 @@ public class Intake implements Subsystem {
         pivotConfigs.SoftwareLimitSwitch.withForwardSoftLimitEnable(true).withForwardSoftLimitThreshold(PIVOT_MOTOR_CONFIGS.SOFT_FORWARD_LIMIT);
         pivotConfigs.SoftwareLimitSwitch.withReverseSoftLimitEnable(true).withReverseSoftLimitThreshold(PIVOT_MOTOR_CONFIGS.SOFT_REVERSE_LIMIT);
         pivotConfigs.TorqueCurrent.withPeakForwardTorqueCurrent(Amps.of(PIVOT_MOTOR_CONFIGS.PEAK_AMPS))
-                                    .withPeakReverseTorqueCurrent(Amps.of(PIVOT_MOTOR_CONFIGS.PEAK_AMPS));
+                                    .withPeakReverseTorqueCurrent(Amps.of(PIVOT_MOTOR_CONFIGS.PEAK_AMPS).unaryMinus());
         pivotConfigs.Feedback.SensorToMechanismRatio = PIVOT_MOTOR_CONFIGS.SENSOR_TO_MECHANISM_RATIO;
         
         // set slot 0 gains
@@ -65,7 +66,7 @@ public class Intake implements Subsystem {
         var intakeConfigs = new TalonFXConfiguration();
         intakeConfigs.Voltage.withPeakForwardVoltage(Volts.of(INTAKE_MOTOR_CONFIGS.PEEK_FORWARD_VOLTAGE))
                               .withPeakReverseVoltage(Volts.of(-INTAKE_MOTOR_CONFIGS.PEEK_REVERSE_VOLTAGE));
-        intakeConfigs.CurrentLimits.withStatorCurrentLimitEnable(true).withStatorCurrentLimit(INTAKE_MOTOR_CONFIGS.PEAK_AMPS);
+        // intakeConfigs.CurrentLimits.withStatorCurrentLimitEnable(true).withStatorCurrentLimit(INTAKE_MOTOR_CONFIGS.PEAK_AMPS);
         intakeConfigs.Slot0 = Slot0Configs.from(INTAKE_MOTOR_CONFIGS.INTAKE_MOTOR_SLOT_CONFIG);
         intakeConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
@@ -79,6 +80,7 @@ public class Intake implements Subsystem {
     private TalonFX intakeMotor = new TalonFX(INTAKE_MOTOR_CONFIGS.MOTOR_ID);
 
     public final MotionMagicVoltage m_MotionMagicVoltage = new MotionMagicVoltage(0).withEnableFOC(true);
+    public final TorqueCurrentFOC m_TorqueCurrentFOC = new TorqueCurrentFOC(PIVOT_MOTOR_CONFIGS.DEPLOY_WITH_TORQUE_FOC);
     public final VelocityVoltage m_VelocityVoltageIntake = new VelocityVoltage(0).withEnableFOC(true);
     public final StatusSignal<Angle> intakePosition = pivotMotor.getPosition();
 
@@ -92,6 +94,14 @@ public class Intake implements Subsystem {
     // method to set pivot motor speed
     public void deployIntake() {
         pivotMotor.setControl(m_MotionMagicVoltage.withPosition(Constants.INTAKE_DEPLOY_POSITION));
+    }
+
+    public void deployToLimit() {
+        pivotMotor.setControl(m_MotionMagicVoltage.withPosition(PIVOT_MOTOR_CONFIGS.SOFT_REVERSE_LIMIT));
+    }
+
+    public void holdIntakeOut() {
+        pivotMotor.setControl(m_TorqueCurrentFOC.withIgnoreSoftwareLimits(true));
     }
 
     public void retractIntake() {

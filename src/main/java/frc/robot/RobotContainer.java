@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants.SHOOTING_CONSTANTS;
 import frc.robot.commands.PhotonVisionCommand;
 import frc.robot.commands.TeleOpCommands.IntakeFuelCommand;
+import frc.robot.commands.TeleOpCommands.PassCommand;
 import frc.robot.commands.TeleOpCommands.RetractIntakeCommand;
 import frc.robot.commands.TeleOpCommands.ShootAtTargetCommand;
 import frc.robot.generated.TunerConstants;
@@ -68,6 +69,8 @@ public class RobotContainer {
     private final ShootAtTargetCommand mAutoShoot = new ShootAtTargetCommand(drivetrain, m_Turret, m_Shooter, m_Kicker, m_Spindexer, SHOOTING_CONSTANTS.HUB_RED, SHOOTING_CONSTANTS.HUB_BLUE, SHOOTING_CONSTANTS.SHOOT_LOOKUP_TABLE);
     private final IntakeFuelCommand mAutoIntake = new IntakeFuelCommand(m_intake);
     private final RetractIntakeCommand mAutoRetractIntake = new RetractIntakeCommand(m_intake);
+    private final PassCommand mPassLeft = new PassCommand(drivetrain, m_Turret, m_Shooter, m_Kicker, m_Spindexer, SHOOTING_CONSTANTS.SHUTTLE_RED_HIGH, SHOOTING_CONSTANTS.SHUTTLE_BLUE_HIGH, SHOOTING_CONSTANTS.SHUTTLE_LOOKUP_TABLE);
+    private final PassCommand mPassRight = new PassCommand(drivetrain, m_Turret, m_Shooter, m_Kicker, m_Spindexer, SHOOTING_CONSTANTS.SHUTTLE_RED_LOW, SHOOTING_CONSTANTS.SHUTTLE_BLUE_LOW, SHOOTING_CONSTANTS.SHUTTLE_LOOKUP_TABLE);
 
     public RobotContainer() {
 
@@ -86,6 +89,7 @@ public class RobotContainer {
         autoChooser = AutoBuilder.buildAutoChooser(); // populates auto based on Path Planner Auto Folder
 
         SmartDashboard.putData("Auto Mode", autoChooser);
+        SmartDashboard.putBoolean("Zeroed", false);
         configureBindings();
     }
 
@@ -115,6 +119,7 @@ public class RobotContainer {
         driveXboxController.start().onTrue(Commands.runOnce(() -> {
             m_intake.resetPositionToRetracted();
             m_Turret.resetZeroPosition();
+            SmartDashboard.putBoolean("Zeroed", true);
         }, m_intake, m_Turret).ignoringDisable(true));
 
         drivetrain.registerTelemetry(logger::telemeterize);
@@ -124,6 +129,8 @@ public class RobotContainer {
         driveXboxController.rightTrigger().whileTrue(mAutoShoot);
         driveXboxController.leftTrigger().whileTrue(mAutoIntake);
         driveXboxController.leftBumper().onTrue(mAutoRetractIntake);
+        driveXboxController.x().whileTrue(mPassLeft);
+        driveXboxController.b().whileTrue(mPassRight);
     }
 
     public Command getAutonomousCommand() {

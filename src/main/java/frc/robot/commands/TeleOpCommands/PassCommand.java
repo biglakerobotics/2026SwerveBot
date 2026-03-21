@@ -1,13 +1,5 @@
 package frc.robot.commands.TeleOpCommands;
 
-import static edu.wpi.first.units.Units.Rotations;
-
-import com.ctre.phoenix6.swerve.SwerveRequest;
-import com.ctre.phoenix6.swerve.SwerveRequest.Idle;
-
-import edu.wpi.first.math.filter.MedianFilter;
-import edu.wpi.first.math.filter.SlewRateLimiter;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -18,7 +10,7 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Spindexer;
 import frc.robot.subsystems.Turret;
 
-public class ShootAtTargetCommand extends Command{
+public class PassCommand extends Command{
     // import subsystems and variables here
     CommandSwerveDrivetrain m_drivetrain;
     Turret m_turret;
@@ -31,7 +23,7 @@ public class ShootAtTargetCommand extends Command{
     InterpolatingDoubleTreeMap m_lookupTable;
     boolean shooting = false;
 
-    public ShootAtTargetCommand(CommandSwerveDrivetrain drivetrain, Turret turret, Shooter shooter, Kicker kicker, Spindexer spindexer, Translation2d targetRed, Translation2d targetBlue, InterpolatingDoubleTreeMap lookupTable) {
+    public PassCommand(CommandSwerveDrivetrain drivetrain, Turret turret, Shooter shooter, Kicker kicker, Spindexer spindexer, Translation2d targetRed, Translation2d targetBlue, InterpolatingDoubleTreeMap lookupTable) {
         m_drivetrain = drivetrain;
         m_turret = turret;
         m_shooter = shooter;
@@ -69,7 +61,7 @@ public class ShootAtTargetCommand extends Command{
         // System.out.println(m_turret.isAtPosition());
 
         //if shooter is at speed, and turret is at position, then kick
-        if (shooting || m_shooter.isAtSpeed() && m_turret.isAtPosition()) {
+        if (shooting || m_shooter.isAtSpeed() && m_turret.isAtPositionMoving()) {
             shooting = true;
             m_kicker.setDefaultKickerSpeed();
             m_spindexer.setDefaultSpindexerSpeed();
