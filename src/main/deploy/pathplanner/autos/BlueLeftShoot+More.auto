@@ -95,6 +95,25 @@
                 "data": {
                   "name": "DeployIntake"
                 }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.25
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "RetractIntake"
+                }
               }
             ]
           }
