@@ -84,7 +84,6 @@ public class RobotContainer {
 
 
 
-
         // autoChooser.addOption("Just Shoot", new PathPlannerAuto("JustShoot"));
         autoChooser = AutoBuilder.buildAutoChooser(); // populates auto based on Path Planner Auto Folder
 
