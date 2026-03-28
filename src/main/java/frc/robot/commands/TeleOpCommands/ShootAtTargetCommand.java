@@ -78,7 +78,7 @@ public class ShootAtTargetCommand extends Command{
         // Turret
         var angleToTarget = targetTranslation.minus(turretTranslation).getAngle();
 
-        m_turret.turretSpinToPosition(angleToTarget.minus(robotPose.getRotation()).getRotations());
+        m_turret.turretSpinToPosition(angleToTarget.minus(futurePose.getRotation()).getRotations());
 
         // System.out.println(m_turret.isAtPosition());
 
