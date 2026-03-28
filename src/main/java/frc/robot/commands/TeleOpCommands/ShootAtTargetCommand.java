@@ -2,6 +2,9 @@ package frc.robot.commands.TeleOpCommands;
 
 import static edu.wpi.first.units.Units.Rotations;
 
+import java.lang.constant.Constable;
+import java.util.Map;
+
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.ctre.phoenix6.swerve.SwerveRequest.Idle;
 
@@ -14,6 +17,7 @@ import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.SHOOTING_CONSTANTS;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Kicker;
 import frc.robot.subsystems.Shooter;
@@ -33,9 +37,12 @@ public class ShootAtTargetCommand extends Command{
     InterpolatingDoubleTreeMap m_lookupTable;
     boolean shooting = false;
     ChassisSpeeds robotVelocity;
+    InterpolatingDoubleTreeMap m_latencyTable;
+   
+    
 
 
-    public ShootAtTargetCommand(CommandSwerveDrivetrain drivetrain, Turret turret, Shooter shooter, Kicker kicker, Spindexer spindexer, Translation2d targetRed, Translation2d targetBlue, InterpolatingDoubleTreeMap lookupTable) {
+    public ShootAtTargetCommand(CommandSwerveDrivetrain drivetrain, Turret turret, Shooter shooter, Kicker kicker, Spindexer spindexer, Translation2d targetRed, Translation2d targetBlue, InterpolatingDoubleTreeMap lookupTable, InterpolatingDoubleTreeMap latencyTable) {
         m_drivetrain = drivetrain;
         m_turret = turret;
         m_shooter = shooter;
@@ -44,6 +51,8 @@ public class ShootAtTargetCommand extends Command{
         m_targetRed = targetRed;
         m_targetBlue = targetBlue;
         m_lookupTable = lookupTable; 
+        m_latencyTable = latencyTable;
+        
         robotVelocity = m_drivetrain.getState().Speeds;
         addRequirements( m_turret, m_shooter, m_kicker, m_spindexer);
     }
@@ -59,7 +68,7 @@ public class ShootAtTargetCommand extends Command{
     @Override
     public void execute() {
 
-        double latency = 0.2; // 200 ms latency compensation
+        double latency = m_latencyTable.get(Math.sqrt(robotVelocity.vxMetersPerSecond*robotVelocity.vxMetersPerSecond + robotVelocity.vyMetersPerSecond*robotVelocity.vyMetersPerSecond)); // 200 ms latency compensation
         var robotPose = m_drivetrain.getState().Pose;
 
         var futurePose = robotPose.transformBy(new Transform2d(new Translation2d( robotVelocity.vxMetersPerSecond, robotVelocity.vyMetersPerSecond).times(latency), new Rotation2d(robotVelocity.omegaRadiansPerSecond).times(latency)));

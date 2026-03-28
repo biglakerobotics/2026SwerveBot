@@ -33,6 +33,7 @@ import frc.robot.subsystems.Intake;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 
 
 public class RobotContainer {
@@ -40,6 +41,9 @@ public class RobotContainer {
 
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+
+    ChassisSpeeds robotVelocity;
+
 
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
@@ -66,7 +70,7 @@ public class RobotContainer {
 
     private final SendableChooser<Command> autoChooser;
 
-    private final ShootAtTargetCommand mAutoShoot = new ShootAtTargetCommand(drivetrain, m_Turret, m_Shooter, m_Kicker, m_Spindexer, SHOOTING_CONSTANTS.HUB_RED, SHOOTING_CONSTANTS.HUB_BLUE, SHOOTING_CONSTANTS.SHOOT_LOOKUP_TABLE);
+    private final ShootAtTargetCommand mAutoShoot = new ShootAtTargetCommand(drivetrain, m_Turret, m_Shooter, m_Kicker, m_Spindexer, SHOOTING_CONSTANTS.HUB_RED, SHOOTING_CONSTANTS.HUB_BLUE, SHOOTING_CONSTANTS.SHOOT_LOOKUP_TABLE, SHOOTING_CONSTANTS.LATENCY_LOOKUP_TABLE);
     private final IntakeFuelCommand mAutoIntake = new IntakeFuelCommand(m_intake);
     private final RetractIntakeCommand mAutoRetractIntake = new RetractIntakeCommand(m_intake);
     private final PassCommand mPassLeft = new PassCommand(drivetrain, m_Turret, m_Shooter, m_Kicker, m_Spindexer, SHOOTING_CONSTANTS.SHUTTLE_RED_HIGH, SHOOTING_CONSTANTS.SHUTTLE_BLUE_HIGH, SHOOTING_CONSTANTS.SHUTTLE_LOOKUP_TABLE);
@@ -87,8 +91,12 @@ public class RobotContainer {
         // autoChooser.addOption("Just Shoot", new PathPlannerAuto("JustShoot"));
         autoChooser = AutoBuilder.buildAutoChooser(); // populates auto based on Path Planner Auto Folder
 
+        // double absVelocity = Math.sqrt(robotVelocity.vxMetersPerSecond*robotVelocity.vxMetersPerSecond + robotVelocity.vyMetersPerSecond*robotVelocity.vyMetersPerSecond);
+
         SmartDashboard.putData("Auto Mode", autoChooser);
         SmartDashboard.putBoolean("Zeroed", false);
+        // SmartDashboard.putNumber("Velocity",absVelocity);
+
         configureBindings();
     }
 
